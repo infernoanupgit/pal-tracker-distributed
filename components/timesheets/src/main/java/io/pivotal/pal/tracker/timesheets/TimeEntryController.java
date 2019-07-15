@@ -3,6 +3,7 @@ package io.pivotal.pal.tracker.timesheets;
 import io.pivotal.pal.tracker.timesheets.data.TimeEntryDataGateway;
 import io.pivotal.pal.tracker.timesheets.data.TimeEntryFields;
 import io.pivotal.pal.tracker.timesheets.data.TimeEntryRecord;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +27,7 @@ public class TimeEntryController {
         this.client = client;
     }
 
-
+    @LoadBalanced
     @PostMapping
     public ResponseEntity<TimeEntryInfo> create(@RequestBody TimeEntryForm form) {
         if (projectIsActive(form.projectId)) {
@@ -36,6 +37,7 @@ public class TimeEntryController {
         return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);
     }
 
+    @LoadBalanced
     @GetMapping
     public List<TimeEntryInfo> list(@RequestParam long userId) {
         return gateway.findAllByUserId(userId).stream()

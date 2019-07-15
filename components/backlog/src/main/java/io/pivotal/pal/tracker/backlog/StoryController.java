@@ -3,6 +3,7 @@ package io.pivotal.pal.tracker.backlog;
 import io.pivotal.pal.tracker.backlog.data.StoryDataGateway;
 import io.pivotal.pal.tracker.backlog.data.StoryFields;
 import io.pivotal.pal.tracker.backlog.data.StoryRecord;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +25,7 @@ public class StoryController {
         this.client = client;
     }
 
-
+    @LoadBalanced
     @PostMapping
     public ResponseEntity<StoryInfo> create(@RequestBody StoryForm form) {
         if (projectIsActive(form.projectId)) {
@@ -35,6 +36,7 @@ public class StoryController {
         return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);
     }
 
+    @LoadBalanced
     @GetMapping
     public List<StoryInfo> list(@RequestParam long projectId) {
         return gateway.findAllByProjectId(projectId).stream()
