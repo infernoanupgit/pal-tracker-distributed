@@ -3,7 +3,6 @@ package io.pivotal.pal.tracker.allocations;
 import io.pivotal.pal.tracker.allocations.data.AllocationDataGateway;
 import io.pivotal.pal.tracker.allocations.data.AllocationFields;
 import io.pivotal.pal.tracker.allocations.data.AllocationRecord;
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +26,6 @@ public class AllocationController {
         this.client = client;
     }
 
-    @LoadBalanced
     @PostMapping
     public ResponseEntity<AllocationInfo> create(@RequestBody AllocationForm form) {
 
@@ -39,7 +37,6 @@ public class AllocationController {
         return new ResponseEntity<>(HttpStatus.SERVICE_UNAVAILABLE);
     }
 
-    @LoadBalanced
     @GetMapping
     public List<AllocationInfo> list(@RequestParam long projectId) {
         return gateway.findAllByProjectId(projectId)

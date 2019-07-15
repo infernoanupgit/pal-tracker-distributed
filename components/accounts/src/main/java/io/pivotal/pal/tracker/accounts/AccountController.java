@@ -2,7 +2,6 @@ package io.pivotal.pal.tracker.accounts;
 
 import io.pivotal.pal.tracker.accounts.data.AccountDataGateway;
 import io.pivotal.pal.tracker.accounts.data.AccountRecord;
-import org.springframework.cloud.client.loadbalancer.LoadBalanced;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,7 +20,6 @@ public class AccountController {
         this.gateway = gateway;
     }
 
-    @LoadBalanced
     @GetMapping("/accounts")
     public List<AccountInfo> list(@RequestParam long ownerId) {
         return gateway.findAllByOwnerId(ownerId)

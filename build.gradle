@@ -16,6 +16,7 @@ buildscript {
         jsonPathVersion = "2.4.0"
         springCloudVersion = "Finchley.RELEASE"
         springCloudServicesClientLibrariesVersion = "2.0.2.RELEASE"
+        hystricsJavanicaVersion = "1.5.18"
     }
 
     repositories {
