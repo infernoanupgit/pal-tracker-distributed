@@ -21,4 +21,5 @@ public class RegistrationController {
         UserRecord record = service.createUserWithAccount(form.name);
         return new UserInfo(record.id, record.name, "registration info");
     }
+
 }

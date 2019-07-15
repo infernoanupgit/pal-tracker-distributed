@@ -46,6 +46,7 @@ public class TimeEntryController {
     }
 
 
+
     private TimeEntryInfo present(TimeEntryRecord record) {
         return timeEntryInfoBuilder()
             .id(record.id)
